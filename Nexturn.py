@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import plotly.express as px
+import matplotlib.pyplot as plt
 
 # Set page title and company logo
 st.set_page_config(
@@ -30,17 +30,27 @@ else:
     st.header("Case Three Details")
     st.write("Details about Case Three goes here.")
 
-# Interactive chart based on user input
+# Interactive chart based on user input (using Matplotlib)
 st.header("Interactive Chart")
-data = pd.DataFrame({
-    'Category': ['A', 'B', 'C', 'D'],
-    'Values': [st.slider('A', 1, 100, 25),
-               st.slider('B', 1, 100, 50),
-               st.slider('C', 1, 100, 75),
-               st.slider('D', 1, 100, 10)]
-})
-fig = px.bar(data, x='Category', y='Values', text='Values', title='Interactive Bar Chart')
-st.plotly_chart(fig)
+
+# Sliders for user input
+a = st.slider('A', 1, 100, 25)
+b = st.slider('B', 1, 100, 50)
+c = st.slider('C', 1, 100, 75)
+d = st.slider('D', 1, 100, 10)
+
+# Data for the chart
+categories = ['A', 'B', 'C', 'D']
+values = [a, b, c, d]
+
+# Create a bar chart using Matplotlib
+plt.figure(figsize=(8, 6))
+plt.bar(categories, values, color='skyblue')
+plt.xlabel('Category')
+plt.ylabel('Values')
+plt.title('Interactive Bar Chart')
+plt.xticks(rotation=45)
+st.pyplot(plt)
 
 # Add a fun fact
 st.sidebar.header("Fun Fact")
@@ -49,4 +59,3 @@ st.sidebar.write("Did you know? Streamlit is an amazing tool for creating intera
 # Footer
 st.markdown("---")
 st.write("© 2023 Your Company. All rights reserved.")
-
